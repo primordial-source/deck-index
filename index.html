@@ -21,6 +21,28 @@
       blockquote {
         font-size: 14px;
       }
+      .colors {
+        background-image: url(https://media-dominaria.cursecdn.com/attachments/78/580/635032491774708003.png);
+        width: 20px;
+        height: 20px;
+        background-size: 104px 20px;
+        background-repeat: no-repeat;
+      }
+      .colors__W {
+        background-position: 0px center;
+      }
+      .colors__U {
+        background-position: -20px center;
+      }
+      .colors__B {
+        background-position: -40px center;
+      }
+      .colors__R {
+        background-position: -60px center;
+      }
+      .colors__G {
+        background-position: -80px center;
+      }
     </style>
   </head>
   <body>
@@ -53,7 +75,12 @@
             tdSet.innerText = item.set;
             tr.appendChild(tdSet);
             var tdColors = document.createElement("td");
-            tdColors.innerText = item.colors;
+            item.colors.split("").forEach(function(color) {
+              var divColor = document.createElement("div");
+              divColor.classList.add("colors");
+              divColor.classList.add("colors__" + color);
+              tdColors.appendChild(divColor);
+            });
             tr.appendChild(tdColors);
             var tdLink = document.createElement("td");
             var aLink = document.createElement("a");
