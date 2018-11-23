@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Primordial Deck List Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css"
+    />
+    <style>
+      blockquote {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Primordial decklists index</h1>
+    <div class="container">
+      <div class="row">
+        <div class="column column-70 column-offset-15">
+          <table id="decks">
+            <thead>
+              <th>Set</th>
+              <th>Colors</th>
+              <th>Link</th>
+              <th>Description</th>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      fetch("./list.json")
+        .then(function(res) {
+          return res.json();
+        })
+        .then(function(data) {
+          var decks = document.querySelector("#decks > tbody");
+          data.forEach(function(item) {
+            var tr = document.createElement("tr");
+            var tdSet = document.createElement("td");
+            tdSet.innerText = item.set;
+            tr.appendChild(tdSet);
+            var tdColors = document.createElement("td");
+            tdColors.innerText = item.colors;
+            tr.appendChild(tdColors);
+            var tdLink = document.createElement("td");
+            var aLink = document.createElement("a");
+            aLink.target = "__blank";
+            aLink.href = item.link;
+            aLink.innerText = "see";
+            tdLink.appendChild(aLink);
+            tr.appendChild(tdLink);
+            var tdDescription = document.createElement("td");
+            if (item.description) {
+              var spoilerDescription = document.createElement("spoiler");
+              var blockquoteDescription = document.createElement("blockquote");
+              blockquoteDescription.innerHTML = item.description;
+              spoilerDescription.appendChild(blockquoteDescription);
+              tdDescription.appendChild(spoilerDescription);
+            }
+            tr.appendChild(tdDescription);
+            decks.appendChild(tr);
+          });
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    </script>
+  </body>
+</html>
