@@ -17,6 +17,7 @@
       rel="stylesheet"
       href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css"
     />
+    <script src="https://deckbox.org/assets/external/tooltip.js"></script>
     <style>
       blockquote {
         font-size: 14px;
@@ -100,6 +101,8 @@
             tr.appendChild(tdDescription);
             decks.appendChild(tr);
           });
+          Array.from(document.querySelectorAll('u')).forEach(function(el) { el.outerHTML = '<a class="simple" href="https://deckbox.org/mtg/' + el.innerText + '">' + el.innerText + '</a>'; });
+          Deckbox.ui.Tooltip('simple', 'a');
         })
         .catch(function(error) {
           console.error(error);
